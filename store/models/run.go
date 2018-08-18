@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/smartcontractkit/chainlink/logger"
 	"github.com/smartcontractkit/chainlink/store/assets"
 	"github.com/tidwall/gjson"
 	null "gopkg.in/guregu/null.v3"
@@ -150,7 +151,9 @@ func (tr TaskRun) MergeTaskParams(j JSON) (TaskRun, error) {
 		return tr, fmt.Errorf("TaskRun#Merge merging params: %v", err.Error())
 	}
 
+	logger.Debugw("Task params before merge: %+v", tr.Task.Params)
 	tr.Task.Params = merged
+	logger.Debugw("Task params after merge: %+v", tr.Task.Params)
 	return tr, nil
 }
 
